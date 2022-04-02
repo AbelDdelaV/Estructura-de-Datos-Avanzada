@@ -18,9 +18,8 @@ using namespace std;
 
 int datoss = 0;
 
-
-std::random_device rd;  //Will be used to obtain a seed for the random number engine
-std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+std::random_device rd;
+std::mt19937 gen(rd());
 std::uniform_int_distribution<> distrib(1, 100);
 
 template<class G>
@@ -68,15 +67,11 @@ void CGraph<N>::calcDistances()
             pointA = p->ubi;
         }
         else {
-            for (typename list<N>::iterator it = p->ubi.begin(), _it = pointA.begin(); it != p->ubi.end(); ++it, ++_it)
-            {
+            for (typename list<N>::iterator it = p->ubi.begin(), _it = pointA.begin(); it != p->ubi.end(); ++it, ++_it){
                 int rest = (*it)-(*_it);
-                //cout << (*it) << " - " << (*_it) << endl;
                 sum += pow(rest, 2);
             }
-            //cout << "SUM: " << sum << endl;
             euclideanDistance = sqrt(sum);
-            //cout << "SQRT: "<< euclideanDistance << endl;
             aux.push_back(euclideanDistance);
             auxSet.insert(euclideanDistance);
         }
@@ -85,30 +80,12 @@ void CGraph<N>::calcDistances()
     for (auto it = auxSet.begin(); it!=auxSet.end(); it++) {
         distances.push_back(new CNode<CGraph<N>>(*it));
     }
-    /*cout << endl << endl;
-    for (auto it = auxSet.begin(); it!=auxSet.end(); it++) {
-        cout << *it << " ";
-    }
-    cout << endl;
-    for (int i = 0; i < distances.size(); i++)
-    {
-        Node* p = distances[i];
-        cout << p->m_n << " ";
-    }
-    cout << endl;
-    for (int i = 0; i < aux.size(); i++)
-    {
-        cout << aux[i] << " ";
-    }
-    cout << endl;*/
     for (int i = 0; i < distances.size(); i++)
     {
         int count = 0;
         Node* p = distances[i];
-        //cout << "Nodo: " << p->m_n << endl;
         for (int i = 0; i < aux.size(); i++)
         {
-            //cout << aux[i] << " ";
             count += p->m_n == aux[i]? 1 : 0;
         }
         p->nDatos = count;
@@ -152,8 +129,7 @@ void CGraph<N>::Print()
     for (int i = 0; i < nodes.size(); i++)
     {
         Node* p = nodes[i];
-        //cout << "Nodo: " << p->m_n << endl;
-        
+        cout << "Nodo: " << p->m_n << endl;
         for (typename list<N>::iterator it = p->ubi.begin(); it != p->ubi.end(); ++it)
         {
             cout << *it << " ";
@@ -164,7 +140,7 @@ void CGraph<N>::Print()
 
 int main(int argc, const char * argv[])
 {
-    int dim = 1;
+    int dim = 100;
     int nodo = 20000;
     CGraph<int> T;
     
@@ -172,10 +148,7 @@ int main(int argc, const char * argv[])
         T.InsNode(i);
         T.InsPoints(T.nodes[i-1], dim);
     }
-   
     //T.Print();
-    cout << "Finish!!!!" << endl;
     T.calcDistances();
-    //cout << endl << datoss << endl;
     return 0;
 }

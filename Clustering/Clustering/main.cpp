@@ -91,20 +91,6 @@ void CGraph<N>::calcDistances()
         p->nDatos = count;
         datoss+=count;
     }
-    
-    for (int i = 0; i < distances.size(); i++)
-    {
-        Node* p = distances[i];
-        cout << p->m_n << endl;
-        //cout << p->m_n << "    -> " << p->nDatos << endl;
-    }
-    cout << endl << endl;
-    for (int i = 0; i < distances.size(); i++)
-    {
-        Node* p = distances[i];
-        cout << p->nDatos << endl;
-        //cout << p->m_n << "    -> " << p->nDatos << endl;
-    }
 }
 
 template<class N>
